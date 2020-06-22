@@ -132,6 +132,35 @@ async function init() {
         formatter.payload.value = value;
         formatter.update();
     })
+
+    document
+        .querySelector('form[action="#/queues/get"] > input[type="submit"]')
+        .onclick = () => {
+            setTimeout(() => {
+                const msgElements = document.querySelectorAll('.msg-payload');
+
+                for(const el of msgElements) {
+                    try {
+                        const json = JSON.parse(el.innerHTML);
+                        el.innerHTML = JSON.stringify(json, undefined, 2);
+
+                        const formatter = new JSONFormatter(json, Infinity, {
+                            hoverPreviewEnabled: false,
+                            hoverPreviewArrayCount: 20,
+                            hoverPreviewFieldCount: 20,
+                            animateOpen: true,
+                            animateClose: true,
+                            useToJSON: true
+                        });
+
+                        el.parentElement.appendChild(formatter.render());
+                        el.parentElement.removeChild(el);
+                    } catch (e) {
+                        // Do nothing
+                    }
+                }
+            }, 500);
+        };
 }
 
 // generate key for current queue and host
