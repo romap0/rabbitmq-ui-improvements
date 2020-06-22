@@ -27,7 +27,7 @@
         "content.js"
       ],
       "matches": [
-        "http://*:15672/*"
+        "<all_urls>"
       ]
     }
   ]
